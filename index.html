@@ -48,7 +48,11 @@
     <div class="content">
         <p><strong>IP Address (General):</strong> <span id="ip">Loading...</span></p>
         <p><strong>IPv4 Address:</strong> <span id="ipv4">Loading...</span></p>
-        <p><strong>Location:</strong> <span id="location">Loading...</span></p>
+        <p><strong>Location:</strong> 
+            <span id="city">Loading...</span>
+            <span id="region">...</span>
+            <span id="location">...</span>
+        </p>
     </div>
     <footer>
         <p>Powered by ipapi.co and ipify.org</p>
@@ -59,7 +63,10 @@
             .then(response => response.json())
             .then(data => {
                 document.getElementById('ip').textContent = data.ip || 'Unavailable';
+                document.getElementById('city').textContent = data.city || 'Unavailable';
+                document.getElementById('region').textContent = data.region || 'Unavailable';
                 document.getElementById('location').textContent = data.country_name || 'Unavailable';
+
             })
             .catch(error => {
                 console.error('Error fetching data from ipapi:', error);
