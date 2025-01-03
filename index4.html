@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User IP and Location</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        header {
+            background-color: #6200ea;
+            color: white;
+            padding: 1em 0;
+            margin-bottom: 2em;
+        }
+        .content {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 1.5em;
+        }
+        p {
+            font-size: 1.2em;
+            margin: 0.5em 0;
+        }
+        footer {
+            margin-top: 2em;
+            font-size: 0.9em;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Your IP and Location Info</h1>
+    </header>
+    <div class="content">
+        <p><strong>IP Address (General):</strong> <span id="ip">Loading...</span></p>
+        <p><strong>IPv4 Address:</strong> <span id="ipv4">Loading...</span></p>
+        <p><strong>Location:</strong> <span id="location">Loading...</span></p>
+    </div>
+    <footer>
+        <p>Powered by ipapi.co and ipify.org</p>
+    </footer>
+    <script>
+        // Fetch general IP and location data using ipapi
+        fetch('https://ipapi.co/json/')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('ip').textContent = data.ip || 'Unavailable';
+                document.getElementById('location').textContent = data.country_name || 'Unavailable';
+            })
+            .catch(error => {
+                console.error('Error fetching data from ipapi:', error);
+                document.getElementById('ip').textContent = 'Error retrieving IP.';
+                document.getElementById('location').textContent = 'Error retrieving location.';
+            });
+
+        // Fetch IPv4 address specifically using ipify
+        fetch('https://api.ipify.org?format=json')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('ipv4').textContent = data.ip || 'Unavailable';
+            })
+            .catch(error => {
+                console.error('Error fetching IPv4 from ipify:', error);
+                document.getElementById('ipv4').textContent = 'Error retrieving IPv4.';
+            });
+    </script>
+</body>
+</html>
